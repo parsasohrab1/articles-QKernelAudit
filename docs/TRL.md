@@ -47,7 +47,7 @@ Heart failure:
 | 10 | 3.4e-02 | 2.3e-03 | 4.1e-05 | 4.1e-06 |
 
 ## Findings and caveats
-- **The quantum kernel never beats the tuned classical SVMs**: on WDBC it is 1–2 points below them from 4 qubits on (0.962 against 0.977 at 10 qubits); on heart failure it is within noise at 2–4 qubits and 1.5–4 points below at 6–10 qubits. The standard deviations over folds (see tables) are of the order of 1–4 points, so differences at 2–4 qubits are not significant.
+- **The quantum kernel does not beat the best tuned classical SVM at any setting except heart failure with 2 qubits (+0.7 points over the RBF SVM, far inside the fold standard deviation).** On WDBC it is 0.4–2 points below the best classical SVM at every qubit count (1.5 points at 10 qubits: 0.962 against 0.977); on heart failure it is 0.8–3.7 points below from 4 qubits on. Fold standard deviations are 1–2 points (WDBC) and 2–5 points (heart failure), so most single differences are not significant — what the tables show is the absence of any advantage, not a measured deficit.
 - Kernel concentration is clearly visible: at bandwidth 1.0 the off-diagonal variance falls from 10^-1 (2 qubits) to 10^-4 (10 qubits) on WDBC, and to 10^-6 at bandwidth 3.0. The tuning escapes it by choosing the smallest bandwidth (0.1) from 6 qubits on — the edge of the grid searched — where the kernel is close to a low-frequency, nearly classical map; wider grids were not explored.
 - With ≥ 6 qubits the selected bandwidth is 0.1 in every fold, so a better result might lie below the grid.
 - The kernel is evaluated exactly; on hardware every entry would need many shots, and the concentrated entries (variance 10^-4 and below) would need a shot count that grows accordingly — not simulated here.
